@@ -29,9 +29,9 @@ private:
 	}
 
     void intercambiar(int pos1, int pos2){
-		Heap aux = this->array[pos1];
+		Heap auxiliar = this->array[pos1];
 		this->array[pos1] = this->array[pos2];
-		this->array[pos2] = aux;
+		this->array[pos2] = auxiliar;
 	}
 
     bool comparar(int dato1, int dato2){
@@ -41,7 +41,7 @@ private:
     void flotar(int pos){
 		if (pos > 1){
 			int posPadre = padre(pos);
-			if (comparar(this->array[posPadre], this->array[pos]) == True){
+			if (comparar(this->array[posPadre]->peso, this->array[pos]->peso) == true){
 				intercambiar(posPadre, pos);
 				flotar(posPadre);
 			}
@@ -56,13 +56,13 @@ private:
             if(hizq < hder){
                 posMayorHijo = hder;
             }
-			if (comparar(pos,posMayorHijo) == True){
+			if (comparar(pos,posMayorHijo) == true){
 				intercambiar(pos, posMayorHijo);
 				hundir(posMayorHijo);
 			}
 		}
 		else if (hizq < ultimoInsertado){
-			if (comparar(pos,hizq) == True){
+			if (comparar(pos,hizq) == true){
 				intercambiar(pos, hizq);
 				hundir(hizq);
 			}
@@ -71,7 +71,7 @@ private:
 
     void eliminar(){
 		assert(!estaVacio());
-		this->arr[1] = this->arr[ultimoInsertado - 1];
+		this->array[1] = this->array[ultimoInsertado - 1];
 		this->ultimoInsertado--;
 		hundir(1);
 	}
@@ -85,12 +85,12 @@ public:
 
     int devolverTope(){
         assert(!estaVacio());
-        return this->array[1];
+        return this->array[1]->peso;
     }
 
     void insertar(int dato){
 		assert(!estaLleno());
-		this->arr[ultimoInsertado++] = dato;
+		this->array[ultimoInsertado++]->peso = dato;
 		flotar(ultimoInsertado - 1);
 	}
 
@@ -110,11 +110,11 @@ public:
 	}
 
     void compararPeso(int dato){
-        int raiz = this->array[1];
+        int raiz = this->array[1]->peso;
         int hizq = izq(raiz);
         int hder = der(raiz);
         int res;
-        if(comparar(hizq,hder) == True){
+        if(comparar(hizq,hder) == true){
             res = raiz - hder;
         }
         else{
@@ -130,4 +130,4 @@ public:
             this->eliminar();
         }
     }
-}
+};

@@ -11,6 +11,6 @@ int main(){
     MaxHeap* heap = new MaxHeap(cant);
     int dato;
     for(int i=0; i<cant;i++){
-        heap->compararPeso(cin>>dato);
+        //heap->compararPeso(cin>>dato);
     }
 }
